@@ -1,0 +1,11 @@
+setwd("C:/Users/nicole.wiebe/Desktop/Coursera")
+epc <- read.table("household_power_consumption.txt",sep=";",header=T,colClasses="character")
+epc2 <- epc[epc$Date == "1/2/2007" | epc$Date == "2/2/2007", ]
+x <- paste(epc2$Date, epc2$Time)
+epc2$Datetime <- strptime(x, "%d/%m/%Y %H:%M:%S")
+png(filename = "plot3.png", width = 480, height = 480)
+plot(epc2$Datetime,epc2$Sub_metering_1, type="l", xlab="",ylab="Energy sub metering")
+lines(epc2$Datetime,epc2$Sub_metering_2, col="red")
+lines(epc2$Datetime,epc2$Sub_metering_3, col="blue")
+legend("topright",lty=c(1,1,1), col = c("black", "red","blue"), legend = c("Sub_metering_1", "Sub_metering_2","Sub_metering_3"))
+dev.off()
